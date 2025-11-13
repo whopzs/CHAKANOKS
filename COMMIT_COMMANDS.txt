@@ -1,0 +1,50 @@
+# Run these commands one by one in your terminal:
+
+# 1. Supplier authentication
+git add app/Controllers/Login.php
+git commit -m "fix: Link supplier users to supplier records on login"
+
+# 2. Supplier controller
+git add app/Controllers/Supplier.php
+git commit -m "feat: Add supplier controller with order management"
+
+# 3. Dashboard supplier methods
+git add app/Controllers/Dashboard.php
+git commit -m "fix: Add supplier_id fallback in dashboard methods"
+
+# 4. Logistics coordinator account
+git add app/Database/Seeds/UserSeeder.php
+git commit -m "feat: Add logistics coordinator user account"
+
+# 5. Logistics dashboard view
+git add app/Views/logistics/
+git commit -m "feat: Create logistics coordinator dashboard"
+
+# 6. Logistics controller
+git add app/Controllers/Logistics.php
+git commit -m "feat: Add delivery scheduling functionality"
+
+# 7. Sidebar navigation
+git add app/Views/shared/sidebar.php
+git commit -m "feat: Update sidebar for logistics coordinator"
+
+# 8. Routes
+git add app/Config/Routes.php
+git commit -m "feat: Add logistics API routes"
+
+# 9. Delivery statistics fix
+git add app/Models/DeliveryModel.php
+git commit -m "fix: Fix delivery statistics query"
+
+# 10. Inventory controller - PO items fallback
+git add app/Controllers/Inventory.php
+git commit -m "feat: Add PO items fallback for deliveries"
+
+# 11. Deliveries view - base_url fix
+git add app/Views/inventory/deliveries.php
+git commit -m "fix: Use base_url() in deliveries API calls"
+
+# 12. Purchase requests view fixes
+git add app/Views/branchmanager/purchase_requests.php
+git commit -m "fix: Add base_url() and null checks in purchase requests"
+
