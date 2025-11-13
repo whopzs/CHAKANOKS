@@ -6,8 +6,8 @@ use CodeIgniter\Config\BaseConfig;
 
 class Email extends BaseConfig
 {
-    public string $fromEmail  = '';
-    public string $fromName   = '';
+    public string $fromEmail  = 'francismalilay@gmail.com';
+    public string $fromName   = 'ChakaNoks SCMS';
     public string $recipients = '';
 
     /**
@@ -18,7 +18,7 @@ class Email extends BaseConfig
     /**
      * The mail sending protocol: mail, sendmail, smtp
      */
-    public string $protocol = 'mail';
+    public string $protocol = 'smtp';
 
     /**
      * The server path to Sendmail.
@@ -27,23 +27,35 @@ class Email extends BaseConfig
 
     /**
      * SMTP Server Hostname
+     * Common examples:
+     * - Gmail: smtp.gmail.com
+     * - Outlook: smtp-mail.outlook.com
+     * - Yahoo: smtp.mail.yahoo.com
+     * - Custom: smtp.yourdomain.com
      */
-    public string $SMTPHost = '';
+    public string $SMTPHost = 'smtp.gmail.com';
 
     /**
      * SMTP Username
+     * Your email address
      */
-    public string $SMTPUser = '';
+    public string $SMTPUser = 'francismalilay@gmail.com';
 
     /**
      * SMTP Password
+     * For Gmail: Use App Password (not your regular password)
+     * Generate at: https://myaccount.google.com/apppasswords
      */
-    public string $SMTPPass = '';
+    public string $SMTPPass = 'pphedfzbcfidzsyj';
 
     /**
      * SMTP Port
+     * Common ports:
+     * - 587 (TLS - Recommended)
+     * - 465 (SSL)
+     * - 25 (Usually blocked by ISPs)
      */
-    public int $SMTPPort = 25;
+    public int $SMTPPort = 587;
 
     /**
      * SMTP Timeout (in seconds)
@@ -60,7 +72,7 @@ class Email extends BaseConfig
      *
      * @var string '', 'tls' or 'ssl'. 'tls' will issue a STARTTLS command
      *             to the server. 'ssl' means implicit SSL. Connection on port
-     *             465 should set this to ''.
+     *             465 should use 'ssl', port 587 should use 'tls'.
      */
     public string $SMTPCrypto = 'tls';
 

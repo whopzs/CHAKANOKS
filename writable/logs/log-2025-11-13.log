@@ -1,0 +1,955 @@
+ERROR - 2025-11-13 18:09:30 --> mysqli_sql_exception: Unknown column 'branches.name' in 'field list' in C:\xampp\htdocs\CHAKANOKS\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\CHAKANOKS\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `invento...', 0)
+#1 C:\xampp\htdocs\CHAKANOKS\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `invento...')
+#2 C:\xampp\htdocs\CHAKANOKS\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `invento...')
+#3 C:\xampp\htdocs\CHAKANOKS\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `invento...', Array, false)
+#4 C:\xampp\htdocs\CHAKANOKS\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\CHAKANOKS\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\CHAKANOKS\app\Models\InventoryModel.php(184): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\CHAKANOKS\app\Controllers\Dashboard.php(432): App\Models\InventoryModel->getProductStockByBranch('1')
+#8 C:\xampp\htdocs\CHAKANOKS\app\Controllers\Dashboard.php(256): App\Controllers\Dashboard->getAllProductsWithStock()
+#9 C:\xampp\htdocs\CHAKANOKS\system\CodeIgniter.php(933): App\Controllers\Dashboard->adminProducts()
+#10 C:\xampp\htdocs\CHAKANOKS\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#11 C:\xampp\htdocs\CHAKANOKS\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\CHAKANOKS\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\CHAKANOKS\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\CHAKANOKS\index.php(61): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+ERROR - 2025-11-13 18:09:30 --> getAllProductsWithStock Error: Unknown column 'branches.name' in 'field list'
+ERROR - 2025-11-13 18:10:26 --> mysqli_sql_exception: Unknown column 'branches.name' in 'field list' in C:\xampp\htdocs\CHAKANOKS\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\CHAKANOKS\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `invento...', 0)
+#1 C:\xampp\htdocs\CHAKANOKS\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `invento...')
+#2 C:\xampp\htdocs\CHAKANOKS\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `invento...')
+#3 C:\xampp\htdocs\CHAKANOKS\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `invento...', Array, false)
+#4 C:\xampp\htdocs\CHAKANOKS\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\CHAKANOKS\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\CHAKANOKS\app\Models\InventoryModel.php(184): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\CHAKANOKS\app\Controllers\Dashboard.php(432): App\Models\InventoryModel->getProductStockByBranch('1')
+#8 C:\xampp\htdocs\CHAKANOKS\app\Controllers\Dashboard.php(256): App\Controllers\Dashboard->getAllProductsWithStock()
+#9 C:\xampp\htdocs\CHAKANOKS\system\CodeIgniter.php(933): App\Controllers\Dashboard->adminProducts()
+#10 C:\xampp\htdocs\CHAKANOKS\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#11 C:\xampp\htdocs\CHAKANOKS\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\CHAKANOKS\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\CHAKANOKS\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\CHAKANOKS\index.php(61): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+ERROR - 2025-11-13 18:10:26 --> getAllProductsWithStock Error: Unknown column 'branches.name' in 'field list'
+ERROR - 2025-11-13 18:10:37 --> mysqli_sql_exception: Unknown column 'branches.name' in 'field list' in C:\xampp\htdocs\CHAKANOKS\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\CHAKANOKS\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `invento...', 0)
+#1 C:\xampp\htdocs\CHAKANOKS\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `invento...')
+#2 C:\xampp\htdocs\CHAKANOKS\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `invento...')
+#3 C:\xampp\htdocs\CHAKANOKS\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `invento...', Array, false)
+#4 C:\xampp\htdocs\CHAKANOKS\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\CHAKANOKS\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\CHAKANOKS\app\Models\InventoryModel.php(184): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\CHAKANOKS\app\Controllers\Dashboard.php(432): App\Models\InventoryModel->getProductStockByBranch('1')
+#8 C:\xampp\htdocs\CHAKANOKS\app\Controllers\Dashboard.php(256): App\Controllers\Dashboard->getAllProductsWithStock()
+#9 C:\xampp\htdocs\CHAKANOKS\system\CodeIgniter.php(933): App\Controllers\Dashboard->adminProducts()
+#10 C:\xampp\htdocs\CHAKANOKS\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#11 C:\xampp\htdocs\CHAKANOKS\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\CHAKANOKS\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\CHAKANOKS\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\CHAKANOKS\index.php(61): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+ERROR - 2025-11-13 18:10:37 --> getAllProductsWithStock Error: Unknown column 'branches.name' in 'field list'
+ERROR - 2025-11-13 18:11:48 --> mysqli_sql_exception: Unknown column 'branches.name' in 'field list' in C:\xampp\htdocs\CHAKANOKS\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\CHAKANOKS\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `invento...', 0)
+#1 C:\xampp\htdocs\CHAKANOKS\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `invento...')
+#2 C:\xampp\htdocs\CHAKANOKS\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `invento...')
+#3 C:\xampp\htdocs\CHAKANOKS\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `invento...', Array, false)
+#4 C:\xampp\htdocs\CHAKANOKS\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\CHAKANOKS\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\CHAKANOKS\app\Models\InventoryModel.php(184): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\CHAKANOKS\app\Controllers\Dashboard.php(432): App\Models\InventoryModel->getProductStockByBranch('1')
+#8 C:\xampp\htdocs\CHAKANOKS\app\Controllers\Dashboard.php(256): App\Controllers\Dashboard->getAllProductsWithStock()
+#9 C:\xampp\htdocs\CHAKANOKS\system\CodeIgniter.php(933): App\Controllers\Dashboard->adminProducts()
+#10 C:\xampp\htdocs\CHAKANOKS\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#11 C:\xampp\htdocs\CHAKANOKS\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\CHAKANOKS\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\CHAKANOKS\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\CHAKANOKS\index.php(61): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+ERROR - 2025-11-13 18:11:48 --> getAllProductsWithStock Error: Unknown column 'branches.name' in 'field list'
+CRITICAL - 2025-11-13 18:11:55 --> ErrorException: Undefined array key "name"
+[Method: GET, Route: admin/branch-inventory/1]
+in APPPATH\Views\admin\branch_inventory.php on line 12.
+ 1 APPPATH\Views\admin\branch_inventory.php(12): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "name"', 'C:\\xampp\\htdocs\\CHAKANOKS\\app\\Views\\admin\\branch_inventory.php', 12)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\CHAKANOKS\\app\\Views\\admin\\branch_inventory.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('admin/branch_inventory', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(297): view('admin/branch_inventory', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->branchInventory('1')
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(61): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-13 18:11:58 --> mysqli_sql_exception: Unknown column 'branches.name' in 'field list' in C:\xampp\htdocs\CHAKANOKS\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\CHAKANOKS\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `invento...', 0)
+#1 C:\xampp\htdocs\CHAKANOKS\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `invento...')
+#2 C:\xampp\htdocs\CHAKANOKS\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `invento...')
+#3 C:\xampp\htdocs\CHAKANOKS\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `invento...', Array, false)
+#4 C:\xampp\htdocs\CHAKANOKS\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\CHAKANOKS\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\CHAKANOKS\app\Models\InventoryModel.php(184): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\CHAKANOKS\app\Controllers\Dashboard.php(432): App\Models\InventoryModel->getProductStockByBranch('1')
+#8 C:\xampp\htdocs\CHAKANOKS\app\Controllers\Dashboard.php(256): App\Controllers\Dashboard->getAllProductsWithStock()
+#9 C:\xampp\htdocs\CHAKANOKS\system\CodeIgniter.php(933): App\Controllers\Dashboard->adminProducts()
+#10 C:\xampp\htdocs\CHAKANOKS\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#11 C:\xampp\htdocs\CHAKANOKS\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\CHAKANOKS\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\CHAKANOKS\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\CHAKANOKS\index.php(61): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+ERROR - 2025-11-13 18:11:58 --> getAllProductsWithStock Error: Unknown column 'branches.name' in 'field list'
+CRITICAL - 2025-11-13 18:13:26 --> ErrorException: filesize(): stat failed for C:\xampp\htdocs\CHAKANOKS\writable\session/ci_session30cb724a6cd50dfa8109d0ddbd7cec71
+[Method: GET, Route: branchmanager/api/critical-alerts]
+in SYSTEMPATH\Session\Handlers\FileHandler.php on line 162.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'filesize(): stat failed for C:\\xampp\\htdocs\\CHAKANOKS\\writable\\session/ci_session30cb724a6cd50dfa8109d0ddbd7cec71', 'C:\\xampp\\htdocs\\CHAKANOKS\\system\\Session\\Handlers\\FileHandler.php', 162)
+ 2 SYSTEMPATH\Session\Handlers\FileHandler.php(162): filesize('C:\\xampp\\htdocs\\CHAKANOKS\\writable\\session/ci_session30cb724a6cd50dfa8109d0ddbd7cec71')
+ 3 [internal function]: CodeIgniter\Session\Handlers\FileHandler->read('30cb724a6cd50dfa8109d0ddbd7cec71')
+ 4 SYSTEMPATH\Session\Session.php(912): session_start()
+ 5 SYSTEMPATH\Session\Session.php(243): CodeIgniter\Session\Session->startSession()
+ 6 SYSTEMPATH\Config\Services.php(715): CodeIgniter\Session\Session->start()
+ 7 SYSTEMPATH\Config\BaseService.php(312): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 8 SYSTEMPATH\Config\BaseService.php(251): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 9 SYSTEMPATH\Config\Services.php(668): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+10 SYSTEMPATH\Config\BaseService.php(321): CodeIgniter\Config\Services::session()
+11 SYSTEMPATH\Config\BaseService.php(202): CodeIgniter\Config\BaseService::__callStatic('session', [])
+12 SYSTEMPATH\Common.php(995): CodeIgniter\Config\BaseService::get('session')
+13 SYSTEMPATH\Common.php(968): service('session')
+14 APPPATH\Filters\AuthFilter.php(14): session()
+15 SYSTEMPATH\Filters\Filters.php(241): App\Filters\AuthFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+16 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+17 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('branchmanager/api/critical-alerts', 'before')
+18 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+19 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+20 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+21 FCPATH\index.php(61): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-13 18:37:29 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:37:29 --> 220 smtp.gmail.com ESMTP 98e67ed59e1d1-343ed55564dsm2064064a91.13 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-343ed55564dsm2064064a91.13 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-343ed55564dsm2064064a91.13 - gsmtp
+
+quit: 221 2.0.0 closing connection 98e67ed59e1d1-343ed55564dsm2064064a91.13 - gsmtp
+
+ERROR - 2025-11-13 18:37:29 --> Failed to send critical stock alert email to: bm_dvo01@chakanoks.test
+ERROR - 2025-11-13 18:37:32 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:37:32 --> 220 smtp.gmail.com ESMTP d2e1a72fcca58-7b9250cda04sm1872167b3a.19 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b9250cda04sm1872167b3a.19 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b9250cda04sm1872167b3a.19 - gsmtp
+
+quit: 221 2.0.0 closing connection d2e1a72fcca58-7b9250cda04sm1872167b3a.19 - gsmtp
+
+ERROR - 2025-11-13 18:37:32 --> Failed to send critical stock alert email to: admin@chakanoks.test
+ERROR - 2025-11-13 18:37:34 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:37:34 --> 220 smtp.gmail.com ESMTP d2e1a72fcca58-7b92714e298sm1871024b3a.34 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b92714e298sm1871024b3a.34 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b92714e298sm1871024b3a.34 - gsmtp
+
+quit: 221 2.0.0 closing connection d2e1a72fcca58-7b92714e298sm1871024b3a.34 - gsmtp
+
+ERROR - 2025-11-13 18:37:34 --> Failed to send critical stock alert email to: bm_dvo01@chakanoks.test
+ERROR - 2025-11-13 18:37:37 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:37:37 --> 220 smtp.gmail.com ESMTP 41be03b00d2f7-bc36f61bea9sm1782229a12.14 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 41be03b00d2f7-bc36f61bea9sm1782229a12.14 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 41be03b00d2f7-bc36f61bea9sm1782229a12.14 - gsmtp
+
+quit: 221 2.0.0 closing connection 41be03b00d2f7-bc36f61bea9sm1782229a12.14 - gsmtp
+
+ERROR - 2025-11-13 18:37:37 --> Failed to send critical stock alert email to: admin@chakanoks.test
+ERROR - 2025-11-13 18:37:40 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:37:40 --> 220 smtp.gmail.com ESMTP 98e67ed59e1d1-343e0794e56sm5717454a91.10 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-343e0794e56sm5717454a91.10 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-343e0794e56sm5717454a91.10 - gsmtp
+
+quit: 221 2.0.0 closing connection 98e67ed59e1d1-343e0794e56sm5717454a91.10 - gsmtp
+
+ERROR - 2025-11-13 18:37:40 --> Failed to send critical stock alert email to: bm_dvo01@chakanoks.test
+ERROR - 2025-11-13 18:44:20 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:44:20 --> 220 smtp.gmail.com ESMTP 98e67ed59e1d1-343ed53332csm2108832a91.12 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-343ed53332csm2108832a91.12 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-343ed53332csm2108832a91.12 - gsmtp
+
+quit: 221 2.0.0 closing connection 98e67ed59e1d1-343ed53332csm2108832a91.12 - gsmtp
+
+ERROR - 2025-11-13 18:44:20 --> Failed to send critical stock alert email to: francismalilay@gmail.com
+ERROR - 2025-11-13 18:44:25 --> Email: sendWithSmtp throwed ErrorException: fsockopen(): Unable to connect to smtp.gmail.com:587 (A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) in C:\xampp\htdocs\CHAKANOKS\system\Email\Email.php:1905
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fsockopen(): Un...', 'C:\\xampp\\htdocs...', 1905)
+#1 C:\xampp\htdocs\CHAKANOKS\system\Email\Email.php(1905): fsockopen('smtp.gmail.com', 587, NULL, NULL, 5)
+#2 C:\xampp\htdocs\CHAKANOKS\system\Email\Email.php(1818): CodeIgniter\Email\Email->SMTPConnect()
+#3 C:\xampp\htdocs\CHAKANOKS\system\Email\Email.php(1703): CodeIgniter\Email\Email->sendWithSmtp()
+#4 C:\xampp\htdocs\CHAKANOKS\system\Email\Email.php(1597): CodeIgniter\Email\Email->spoolEmail()
+#5 C:\xampp\htdocs\CHAKANOKS\app\Services\NotificationService.php(103): CodeIgniter\Email\Email->send()
+#6 C:\xampp\htdocs\CHAKANOKS\app\Commands\CheckStockAlerts.php(40): App\Services\NotificationService->sendCriticalStockAlert('Rice (sack)', '1.00', '5.00', '1', 'ING-RICE')
+#7 C:\xampp\htdocs\CHAKANOKS\system\CLI\Commands.php(74): App\Commands\CheckStockAlerts->run(Array)
+#8 C:\xampp\htdocs\CHAKANOKS\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('inventory:check...', Array)
+#9 C:\xampp\htdocs\CHAKANOKS\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#10 C:\xampp\htdocs\CHAKANOKS\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#11 C:\xampp\htdocs\CHAKANOKS\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-11-13 18:44:25 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:44:25 --> 
+ERROR - 2025-11-13 18:44:25 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:44:28 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:44:28 --> 220 smtp.gmail.com ESMTP d2e1a72fcca58-7b92782d39bsm1910543b3a.63 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b92782d39bsm1910543b3a.63 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b92782d39bsm1910543b3a.63 - gsmtp
+
+quit: 221 2.0.0 closing connection d2e1a72fcca58-7b92782d39bsm1910543b3a.63 - gsmtp
+
+ERROR - 2025-11-13 18:44:28 --> Failed to send critical stock alert email to: francismalilay@gmail.com
+ERROR - 2025-11-13 18:44:33 --> Email: sendWithSmtp throwed ErrorException: fsockopen(): Unable to connect to smtp.gmail.com:587 (A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) in C:\xampp\htdocs\CHAKANOKS\system\Email\Email.php:1905
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fsockopen(): Un...', 'C:\\xampp\\htdocs...', 1905)
+#1 C:\xampp\htdocs\CHAKANOKS\system\Email\Email.php(1905): fsockopen('smtp.gmail.com', 587, NULL, NULL, 5)
+#2 C:\xampp\htdocs\CHAKANOKS\system\Email\Email.php(1818): CodeIgniter\Email\Email->SMTPConnect()
+#3 C:\xampp\htdocs\CHAKANOKS\system\Email\Email.php(1703): CodeIgniter\Email\Email->sendWithSmtp()
+#4 C:\xampp\htdocs\CHAKANOKS\system\Email\Email.php(1597): CodeIgniter\Email\Email->spoolEmail()
+#5 C:\xampp\htdocs\CHAKANOKS\app\Services\NotificationService.php(103): CodeIgniter\Email\Email->send()
+#6 C:\xampp\htdocs\CHAKANOKS\app\Commands\CheckStockAlerts.php(40): App\Services\NotificationService->sendCriticalStockAlert('Cooking Oil (L)', '8.00', '12.00', '1', 'ING-OIL')
+#7 C:\xampp\htdocs\CHAKANOKS\system\CLI\Commands.php(74): App\Commands\CheckStockAlerts->run(Array)
+#8 C:\xampp\htdocs\CHAKANOKS\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('inventory:check...', Array)
+#9 C:\xampp\htdocs\CHAKANOKS\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#10 C:\xampp\htdocs\CHAKANOKS\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#11 C:\xampp\htdocs\CHAKANOKS\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-11-13 18:44:33 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:44:33 --> 
+ERROR - 2025-11-13 18:44:33 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:44:35 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:44:35 --> 220 smtp.gmail.com ESMTP d2e1a72fcca58-7b9251ca3e9sm1937820b3a.29 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b9251ca3e9sm1937820b3a.29 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b9251ca3e9sm1937820b3a.29 - gsmtp
+
+quit: 221 2.0.0 closing connection d2e1a72fcca58-7b9251ca3e9sm1937820b3a.29 - gsmtp
+
+ERROR - 2025-11-13 18:44:35 --> Failed to send critical stock alert email to: francismalilay@gmail.com
+ERROR - 2025-11-13 18:44:38 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:44:38 --> 220 smtp.gmail.com ESMTP d2e1a72fcca58-7b92772fa51sm1892793b3a.58 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b92772fa51sm1892793b3a.58 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b92772fa51sm1892793b3a.58 - gsmtp
+
+quit: 221 2.0.0 closing connection d2e1a72fcca58-7b92772fa51sm1892793b3a.58 - gsmtp
+
+ERROR - 2025-11-13 18:44:38 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:44:40 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:44:40 --> 220 smtp.gmail.com ESMTP 98e67ed59e1d1-343ea6c8c1dsm1037207a91.3 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-343ea6c8c1dsm1037207a91.3 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-343ea6c8c1dsm1037207a91.3 - gsmtp
+
+quit: 221 2.0.0 closing connection 98e67ed59e1d1-343ea6c8c1dsm1037207a91.3 - gsmtp
+
+ERROR - 2025-11-13 18:44:40 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:44:43 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:44:43 --> 220 smtp.gmail.com ESMTP 98e67ed59e1d1-343e07156absm5672491a91.5 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-343e07156absm5672491a91.5 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-343e07156absm5672491a91.5 - gsmtp
+
+quit: 221 2.0.0 closing connection 98e67ed59e1d1-343e07156absm5672491a91.5 - gsmtp
+
+ERROR - 2025-11-13 18:44:43 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:44:46 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:44:46 --> 220 smtp.gmail.com ESMTP d9443c01a7336-2985c2b10b4sm21386795ad.70 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d9443c01a7336-2985c2b10b4sm21386795ad.70 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d9443c01a7336-2985c2b10b4sm21386795ad.70 - gsmtp
+
+quit: 221 2.0.0 closing connection d9443c01a7336-2985c2b10b4sm21386795ad.70 - gsmtp
+
+ERROR - 2025-11-13 18:44:46 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:44:48 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:44:48 --> 220 smtp.gmail.com ESMTP d2e1a72fcca58-7b9250d24b9sm1901006b3a.17 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b9250d24b9sm1901006b3a.17 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b9250d24b9sm1901006b3a.17 - gsmtp
+
+quit: 221 2.0.0 closing connection d2e1a72fcca58-7b9250d24b9sm1901006b3a.17 - gsmtp
+
+ERROR - 2025-11-13 18:44:48 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:44:51 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:44:51 --> 220 smtp.gmail.com ESMTP 41be03b00d2f7-bc375fe4da5sm1771682a12.26 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 41be03b00d2f7-bc375fe4da5sm1771682a12.26 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 41be03b00d2f7-bc375fe4da5sm1771682a12.26 - gsmtp
+
+quit: 221 2.0.0 closing connection 41be03b00d2f7-bc375fe4da5sm1771682a12.26 - gsmtp
+
+ERROR - 2025-11-13 18:44:51 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:44:53 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:44:53 --> 220 smtp.gmail.com ESMTP d9443c01a7336-2985c2bf158sm20992175ad.91 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d9443c01a7336-2985c2bf158sm20992175ad.91 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d9443c01a7336-2985c2bf158sm20992175ad.91 - gsmtp
+
+quit: 221 2.0.0 closing connection d9443c01a7336-2985c2bf158sm20992175ad.91 - gsmtp
+
+ERROR - 2025-11-13 18:44:53 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:44:55 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:44:55 --> 220 smtp.gmail.com ESMTP 98e67ed59e1d1-343ed4adf45sm2114372a91.4 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-343ed4adf45sm2114372a91.4 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-343ed4adf45sm2114372a91.4 - gsmtp
+
+quit: 221 2.0.0 closing connection 98e67ed59e1d1-343ed4adf45sm2114372a91.4 - gsmtp
+
+ERROR - 2025-11-13 18:44:55 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:44:57 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:44:57 --> 220 smtp.gmail.com ESMTP 41be03b00d2f7-bc36d842cb0sm1821708a12.3 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 41be03b00d2f7-bc36d842cb0sm1821708a12.3 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 41be03b00d2f7-bc36d842cb0sm1821708a12.3 - gsmtp
+
+quit: 221 2.0.0 closing connection 41be03b00d2f7-bc36d842cb0sm1821708a12.3 - gsmtp
+
+ERROR - 2025-11-13 18:44:57 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:45:00 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:45:00 --> 220 smtp.gmail.com ESMTP d2e1a72fcca58-7b927d1d128sm1902587b3a.73 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b927d1d128sm1902587b3a.73 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b927d1d128sm1902587b3a.73 - gsmtp
+
+quit: 221 2.0.0 closing connection d2e1a72fcca58-7b927d1d128sm1902587b3a.73 - gsmtp
+
+ERROR - 2025-11-13 18:45:00 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:45:02 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:45:02 --> 220 smtp.gmail.com ESMTP d9443c01a7336-2985c2346acsm21042635ad.14 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d9443c01a7336-2985c2346acsm21042635ad.14 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d9443c01a7336-2985c2346acsm21042635ad.14 - gsmtp
+
+quit: 221 2.0.0 closing connection d9443c01a7336-2985c2346acsm21042635ad.14 - gsmtp
+
+ERROR - 2025-11-13 18:45:02 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:45:04 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:45:04 --> 220 smtp.gmail.com ESMTP d9443c01a7336-2985c2bf11asm20906285ad.90 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d9443c01a7336-2985c2bf11asm20906285ad.90 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d9443c01a7336-2985c2bf11asm20906285ad.90 - gsmtp
+
+quit: 221 2.0.0 closing connection d9443c01a7336-2985c2bf11asm20906285ad.90 - gsmtp
+
+ERROR - 2025-11-13 18:45:04 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:45:07 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:45:07 --> 220 smtp.gmail.com ESMTP d2e1a72fcca58-7b9250d332asm1930377b3a.25 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b9250d332asm1930377b3a.25 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b9250d332asm1930377b3a.25 - gsmtp
+
+quit: 221 2.0.0 closing connection d2e1a72fcca58-7b9250d332asm1930377b3a.25 - gsmtp
+
+ERROR - 2025-11-13 18:45:07 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:45:09 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:45:09 --> 220 smtp.gmail.com ESMTP d2e1a72fcca58-7b9e3f288b1sm102477b3a.7 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b9e3f288b1sm102477b3a.7 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b9e3f288b1sm102477b3a.7 - gsmtp
+
+quit: 221 2.0.0 closing connection d2e1a72fcca58-7b9e3f288b1sm102477b3a.7 - gsmtp
+
+ERROR - 2025-11-13 18:45:09 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:45:12 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:45:12 --> 220 smtp.gmail.com ESMTP d2e1a72fcca58-7b9251c9a50sm1908227b3a.27 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b9251c9a50sm1908227b3a.27 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. d2e1a72fcca58-7b9251c9a50sm1908227b3a.27 - gsmtp
+
+quit: 221 2.0.0 closing connection d2e1a72fcca58-7b9251c9a50sm1908227b3a.27 - gsmtp
+
+ERROR - 2025-11-13 18:45:12 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:45:17 --> Email: sendWithSmtp throwed ErrorException: fsockopen(): Unable to connect to smtp.gmail.com:587 (A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) in C:\xampp\htdocs\CHAKANOKS\system\Email\Email.php:1905
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fsockopen(): Un...', 'C:\\xampp\\htdocs...', 1905)
+#1 C:\xampp\htdocs\CHAKANOKS\system\Email\Email.php(1905): fsockopen('smtp.gmail.com', 587, NULL, NULL, 5)
+#2 C:\xampp\htdocs\CHAKANOKS\system\Email\Email.php(1818): CodeIgniter\Email\Email->SMTPConnect()
+#3 C:\xampp\htdocs\CHAKANOKS\system\Email\Email.php(1703): CodeIgniter\Email\Email->sendWithSmtp()
+#4 C:\xampp\htdocs\CHAKANOKS\system\Email\Email.php(1597): CodeIgniter\Email\Email->spoolEmail()
+#5 C:\xampp\htdocs\CHAKANOKS\app\Services\NotificationService.php(103): CodeIgniter\Email\Email->send()
+#6 C:\xampp\htdocs\CHAKANOKS\app\Commands\CheckStockAlerts.php(40): App\Services\NotificationService->sendCriticalStockAlert('Rice (sack)', '3.00', '11.00', '5', 'ING-RICE')
+#7 C:\xampp\htdocs\CHAKANOKS\system\CLI\Commands.php(74): App\Commands\CheckStockAlerts->run(Array)
+#8 C:\xampp\htdocs\CHAKANOKS\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('inventory:check...', Array)
+#9 C:\xampp\htdocs\CHAKANOKS\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#10 C:\xampp\htdocs\CHAKANOKS\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#11 C:\xampp\htdocs\CHAKANOKS\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-11-13 18:45:17 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:45:17 --> 
+ERROR - 2025-11-13 18:45:17 --> Failed to send critical stock alert email to: basteuy28@gmail.com
+ERROR - 2025-11-13 18:45:18 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-13 18:45:18 --> 220 smtp.gmail.com ESMTP 98e67ed59e1d1-343e071571fsm5655933a91.7 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+starttls: 220 2.0.0 Ready to start TLS
+
+hello: 250-smtp.gmail.com at your service, [2001:4455:6f1:de00:a568:5784:e738:e69f]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+from: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-343e071571fsm5655933a91.7 - gsmtp
+
+The following SMTP error was encountered: 530-5.7.0 Authentication Required. For more information, go to
+530 5.7.0  https://support.google.com/accounts/troubleshooter/2402620. 98e67ed59e1d1-343e071571fsm5655933a91.7 - gsmtp
+
+quit: 221 2.0.0 closing connection 98e67ed59e1d1-343e071571fsm5655933a91.7 - gsmtp
+
+ERROR - 2025-11-13 18:45:18 --> Failed to send critical stock alert email to: basteuy28@gmail.com

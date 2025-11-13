@@ -7,6 +7,7 @@ use App\Models\BranchModel;
 use App\Models\PurchaseOrderModel;
 use App\Models\StockMovementModel;
 use App\Models\UserModel;
+use App\Services\NotificationService;
 use CodeIgniter\Controller;
 
 class Dashboard extends Controller
@@ -123,7 +124,17 @@ class Dashboard extends Controller
     {
         $stockLevels = $this->inventoryModel->getStockLevels($branchId);
         $recentDeliveries = $this->inventoryModel->getRecentDeliveries($branchId);
-        $expiringItems = $this->inventoryModel->getExpiringItems($branchId);
+        $expiringItems = $this->inventoryModel->getExpiringItems($branchId, 30);
+        
+        // Send email alert for expiring items if any found
+        if (!empty($expiringItems)) {
+            try {
+                $notificationService = new \App\Services\NotificationService();
+                $notificationService->sendExpiringItemsAlert($expiringItems, $branchId);
+            } catch (\Exception $e) {
+                log_message('error', 'Error sending expiring items alert: ' . $e->getMessage());
+            }
+        }
         
         return [
             'stockLevels' => $stockLevels,

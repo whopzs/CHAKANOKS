@@ -87,7 +87,8 @@ class InventoryModel extends Model
             return false;
         }
 
-        $newStock = $inventory['current_stock'];
+        $oldStock = $inventory['current_stock'];
+        $newStock = $oldStock;
         if ($movementType === 'in') {
             $newStock += $quantity;
         } elseif ($movementType === 'out') {
@@ -105,7 +106,55 @@ class InventoryModel extends Model
             'last_updated' => date('Y-m-d H:i:s')
         ]);
 
+        // Check if stock alert should be sent (only if stock decreased)
+        if ($newStock < $oldStock) {
+            $this->checkAndSendStockAlerts($productId, $branchId, $newStock, $inventory);
+        }
+
         return true;
+    }
+
+    /**
+     * Check stock levels and send alerts if needed
+     */
+    private function checkAndSendStockAlerts($productId, $branchId, $currentStock, $inventory)
+    {
+        try {
+            $notificationService = new \App\Services\NotificationService();
+            $productModel = new \App\Models\ProductModel();
+            $product = $productModel->find($productId);
+
+            if (!$product) {
+                return;
+            }
+
+            $productName = $product['product_name'];
+            $productCode = $product['product_code'] ?? '';
+
+            // Check for critical stock (below reorder point)
+            if ($currentStock <= $inventory['reorder_point'] && $currentStock > 0) {
+                $notificationService->sendCriticalStockAlert(
+                    $productName,
+                    $currentStock,
+                    $inventory['reorder_point'],
+                    $branchId,
+                    $productCode
+                );
+            }
+            // Check for low stock (below min level but above reorder point)
+            elseif ($currentStock <= $inventory['min_stock_level'] && $currentStock > $inventory['reorder_point']) {
+                $notificationService->sendLowStockAlert(
+                    $productName,
+                    $currentStock,
+                    $inventory['min_stock_level'],
+                    $branchId,
+                    $productCode
+                );
+            }
+        } catch (\Exception $e) {
+            // Log error but don't fail the stock update
+            log_message('error', 'Error checking stock alerts: ' . $e->getMessage());
+        }
     }
 
     public function getInventoryValue($branchId = null)
@@ -158,11 +207,43 @@ class InventoryModel extends Model
         return [];
     }
 
-    public function getExpiringItems($branchId)
+    public function getExpiringItems($branchId, $days = 30)
     {
-        // This would typically join with a products table that has expiry dates
-        // For now, return empty array as placeholder
-        return [];
+        // Get items from delivery_items that are nearing expiry
+        $deliveryItemModel = new \App\Models\DeliveryItemModel();
+        $expiringItems = $deliveryItemModel->getItemsNearingExpiry($days, $branchId);
+        
+        // Format the data to match expected structure
+        $formattedItems = [];
+        foreach ($expiringItems as $item) {
+            $formattedItems[] = [
+                'product_id' => $item['product_id'],
+                'product_name' => $item['product_name'],
+                'product_code' => $item['product_code'],
+                'expiry_date' => $item['expiry_date'],
+                'quantity' => $item['received_quantity'],
+                'batch_number' => $item['batch_number'] ?? null,
+                'days_remaining' => $this->calculateDaysUntilExpiry($item['expiry_date'])
+            ];
+        }
+        
+        return $formattedItems;
+    }
+    
+    /**
+     * Calculate days until expiry
+     */
+    private function calculateDaysUntilExpiry($expiryDate)
+    {
+        if (empty($expiryDate)) {
+            return null;
+        }
+        
+        $expiry = new \DateTime($expiryDate);
+        $today = new \DateTime();
+        $diff = $today->diff($expiry);
+        
+        return $diff->invert ? -$diff->days : $diff->days;
     }
 
     // Admin-specific methods for cross-branch inventory management

@@ -8,13 +8,17 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        $password = password_hash('admin123', PASSWORD_DEFAULT);
-        $data = [
+        // Different passwords for each user:
+        // admin: 'admin123'
+        // bm_dvo01: 'manager123'
+        // staff_dvo01: 'staff123'
+        
+        $users = [
             [
                 'username' => 'admin',
-                'email' => 'admin@chakanoks.test',
-                'password' => $password,
-                'first_name' => 'System',
+                'email' => 'basteuy28@gmail.com',
+                'password' => password_hash('admin123', PASSWORD_DEFAULT),
+                'first_name' => 'Central Office',
                 'last_name' => 'Admin',
                 'role' => 'admin',
                 'branch_id' => null,
@@ -22,8 +26,8 @@ class UserSeeder extends Seeder
             ],
             [
                 'username' => 'bm_dvo01',
-                'email' => 'bm_dvo01@chakanoks.test',
-                'password' => $password,
+                'email' => 'francismalilay@gmail.com',
+                'password' => password_hash('manager123', PASSWORD_DEFAULT),
                 'first_name' => 'Branch',
                 'last_name' => 'Manager',
                 'role' => 'branch_manager',
@@ -33,7 +37,7 @@ class UserSeeder extends Seeder
             [
                 'username' => 'staff_dvo01',
                 'email' => 'staff_dvo01@chakanoks.test',
-                'password' => $password,
+                'password' => password_hash('staff123', PASSWORD_DEFAULT),
                 'first_name' => 'Inventory',
                 'last_name' => 'Staff',
                 'role' => 'inventory_staff',
@@ -42,7 +46,23 @@ class UserSeeder extends Seeder
             ],
         ];
 
-        $this->db->table('users')->ignore(true)->insertBatch($data);
+        // Insert or update users
+        foreach ($users as $user) {
+            $existing = $this->db->table('users')
+                ->where('username', $user['username'])
+                ->get()
+                ->getRowArray();
+            
+            if ($existing) {    
+                // Update existing user (especially password)
+                $this->db->table('users')
+                    ->where('username', $user['username'])
+                    ->update($user);
+            } else {
+                // Insert new user
+                $this->db->table('users')->insert($user);
+            }
+        }
     }
 }
 
