@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function loadRequestsData() {
   try {
-    const response = await fetch('/branchmanager/api/purchase-requests');
+    const response = await fetch('<?= base_url("branchmanager/api/purchase-requests") ?>');
     const result = await response.json();
     
     if (result.success) {
@@ -287,7 +287,7 @@ async function loadRequestsData() {
 
 async function loadSuppliers() {
   try {
-    const response = await fetch('/branchmanager/api/suppliers');
+    const response = await fetch('<?= base_url("branchmanager/api/suppliers") ?>');
     const result = await response.json();
     
     if (result.success) {
@@ -303,7 +303,7 @@ async function loadSuppliers() {
 
 async function loadProducts() {
   try {
-    const response = await fetch('/branchmanager/api/products');
+    const response = await fetch('<?= base_url("branchmanager/api/products") ?>');
     const result = await response.json();
     
     if (result.success) {
@@ -400,10 +400,16 @@ function updateStats() {
   const approvedRequests = requestsData.filter(r => r.status === 'approved').length;
   const totalValue = requestsData.reduce((sum, r) => sum + parseFloat(r.total_amount || 0), 0);
   
-  document.getElementById('totalRequests').textContent = totalRequests;
-  document.getElementById('pendingRequests').textContent = pendingRequests;
-  document.getElementById('approvedRequests').textContent = approvedRequests;
-  document.getElementById('totalValue').textContent = '₱' + totalValue.toLocaleString();
+  // Check if elements exist before setting textContent
+  const totalRequestsEl = document.getElementById('totalRequests');
+  const pendingRequestsEl = document.getElementById('pendingRequests');
+  const approvedRequestsEl = document.getElementById('approvedRequests');
+  const totalValueEl = document.getElementById('totalValue');
+  
+  if (totalRequestsEl) totalRequestsEl.textContent = totalRequests;
+  if (pendingRequestsEl) pendingRequestsEl.textContent = pendingRequests;
+  if (approvedRequestsEl) approvedRequestsEl.textContent = approvedRequests;
+  if (totalValueEl) totalValueEl.textContent = '₱' + totalValue.toLocaleString();
 }
 
 function filterRequests() {
@@ -519,8 +525,16 @@ function updateRequestSummary() {
   const totalItems = requestItems.length;
   const totalAmount = requestItems.reduce((sum, item) => sum + item.total, 0);
   
-  document.getElementById('totalItemsCount').textContent = totalItems;
-  document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
+  // Check if elements exist before setting textContent
+  const totalItemsEl = document.getElementById('totalItemsCount');
+  const totalAmountEl = document.getElementById('totalAmount');
+  
+  if (totalItemsEl) {
+    totalItemsEl.textContent = totalItems;
+  }
+  if (totalAmountEl) {
+    totalAmountEl.textContent = totalAmount.toFixed(2);
+  }
 }
 
 async function saveAsDraft() {
@@ -538,7 +552,7 @@ async function saveAsDraft() {
   };
   
   try {
-    const response = await fetch('/branchmanager/api/create-purchase-request', {
+    const response = await fetch('<?= base_url("branchmanager/api/create-purchase-request") ?>', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -577,7 +591,7 @@ async function submitRequest() {
   };
   
   try {
-    const response = await fetch('/branchmanager/api/create-purchase-request', {
+    const response = await fetch('<?= base_url("branchmanager/api/create-purchase-request") ?>', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -665,7 +679,7 @@ function editRequest(requestId) {
 async function deleteRequest(requestId) {
   if (confirm('Are you sure you want to delete this purchase request?')) {
     try {
-      const response = await fetch(`/branchmanager/api/delete-purchase-request/${requestId}`, {
+      const response = await fetch(`<?= base_url("branchmanager/api/delete-purchase-request") ?>/${requestId}`, {
         method: 'DELETE'
       });
       
