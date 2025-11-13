@@ -208,18 +208,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function fetchDeliveries() {
   try {
-    const response = await fetch('/inventory/api/delivery-items');
+    const response = await fetch('<?= base_url("inventory/api/delivery-items") ?>');
     if (response.ok) {
-      deliveries = await response.json();
+      const result = await response.json();
+      // Handle new response format with success/data structure
+      if (result.success && result.data) {
+        deliveries = result.data;
+      } else if (Array.isArray(result)) {
+        // Fallback for old format (direct array)
+        deliveries = result;
+      } else {
+        throw new Error(result.message || 'Invalid response format');
+      }
       loadDeliveries();
       updateStats();
       populateDeliverySelect();
     } else {
-      showAlert('Failed to load deliveries', 'danger');
+      const errorData = await response.json().catch(() => ({message: 'Failed to load deliveries'}));
+      showAlert(errorData.message || 'Failed to load deliveries', 'danger');
     }
   } catch (error) {
     console.error('Error fetching deliveries:', error);
-    showAlert('Error loading deliveries', 'danger');
+    showAlert('Error loading deliveries: ' + error.message, 'danger');
   }
 }
 
@@ -230,9 +240,14 @@ function loadDeliveries() {
   const filteredData = getFilteredDeliveries();
   
   filteredData.forEach(delivery => {
-    const totalValue = delivery.items.reduce((sum, item) => sum + (item.expected_qty * item.unit_value), 0);
+    // Calculate total value from items (handle both old and new field names)
+    const totalValue = (delivery.items || []).reduce((sum, item) => {
+      const qty = item.expected_quantity || item.expected_qty || 0;
+      const cost = item.unit_cost || item.unit_value || 0;
+      return sum + (qty * cost);
+    }, 0);
     const statusClass = getDeliveryStatusClass(delivery.status);
-    const itemCount = delivery.items.length;
+    const itemCount = (delivery.items || []).length;
     
     const row = `
       <tr>
@@ -430,7 +445,7 @@ async function confirmDelivery() {
   };
   
   try {
-    const response = await fetch('/inventory/api/receive-delivery', {
+    const response = await fetch('<?= base_url("inventory/api/receive-delivery") ?>', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

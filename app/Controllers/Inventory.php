@@ -8,6 +8,7 @@ use App\Models\StockMovementModel;
 use App\Models\InventoryReportModel;
 use App\Models\DamageExpiredItemModel;
 use App\Models\DeliveryItemModel;
+use App\Models\DeliveryModel;
 
 class Inventory extends BaseController
 {
@@ -27,6 +28,7 @@ class Inventory extends BaseController
         $this->reportModel = new InventoryReportModel();
         $this->damageModel = new DamageExpiredItemModel();
         $this->deliveryItemModel = new DeliveryItemModel();
+        $this->deliveryModel = new DeliveryModel();
         $this->db = \Config\Database::connect();
     }
 
@@ -586,12 +588,139 @@ class Inventory extends BaseController
 
     public function getAllDeliveries()
     {
-        $deliveries = $this->deliveryModel->select('delivery_items.*, suppliers.name as supplier_name')
-                                        ->join('suppliers', 'suppliers.id = delivery_items.supplier_id', 'left')
-                                        ->where('delivery_items.branch_id', session('branch_id'))
-                                        ->orderBy('delivery_items.created_at', 'DESC')
-                                        ->findAll();
+        // Set CORS headers for API access
+        $this->response->setHeader('Access-Control-Allow-Origin', '*');
+        $this->response->setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        $this->response->setHeader('Access-Control-Allow-Headers', 'Content-Type');
         
-        return $this->response->setJSON($deliveries);
+        try {
+            $branchId = session('branch_id');
+            
+            if (!$branchId) {
+                return $this->response->setJSON(['success' => false, 'message' => 'Branch ID not found in session']);
+            }
+            
+            // Get actual deliveries for this branch
+            $deliveries = $this->deliveryModel->select('deliveries.*, suppliers.company_name as supplier_name, purchase_orders.po_number')
+                                            ->join('suppliers', 'suppliers.id = deliveries.supplier_id', 'left')
+                                            ->join('purchase_orders', 'purchase_orders.id = deliveries.purchase_order_id', 'left')
+                                            ->where('deliveries.branch_id', $branchId)
+                                            ->orderBy('deliveries.created_at', 'DESC')
+                                            ->findAll();
+            
+            // Get delivery items for each delivery
+            $result = [];
+            foreach ($deliveries as $delivery) {
+                $items = $this->deliveryItemModel->getItemsByDelivery($delivery['id']);
+                
+                // If no delivery items exist, try to get from PO items
+                if (empty($items) && !empty($delivery['purchase_order_id'])) {
+                    $poItemModel = new \App\Models\PurchaseOrderItemModel();
+                    $poItems = $poItemModel->getItemsByPurchaseOrder($delivery['purchase_order_id']);
+                    
+                    // Convert PO items to delivery item format
+                    if (!empty($poItems)) {
+                        foreach ($poItems as $poItem) {
+                            $items[] = [
+                                'product_id' => $poItem['product_id'],
+                                'product_name' => $poItem['product_name'] ?? 'Unknown Product',
+                                'product_code' => $poItem['product_code'] ?? '',
+                                'product' => $poItem['product_name'] ?? 'Unknown Product',
+                                'expected_quantity' => $poItem['quantity'],
+                                'expected_qty' => $poItem['quantity'],
+                                'received_quantity' => 0,
+                                'received_qty' => 0,
+                                'unit_cost' => $poItem['unit_price'],
+                                'unit_value' => $poItem['unit_price'],
+                                'condition_status' => 'good',
+                                'condition' => 'good'
+                            ];
+                        }
+                    }
+                }
+                
+                $result[] = [
+                    'id' => $delivery['id'],
+                    'delivery_number' => $delivery['delivery_number'],
+                    'supplier' => $delivery['supplier_name'] ?? 'Unknown',
+                    'po_number' => $delivery['po_number'] ?? '',
+                    'expected_date' => $delivery['scheduled_date'],
+                    'status' => $delivery['status'],
+                    'received_by' => $delivery['driver_name'] ?? null,
+                    'items' => $items,
+                    'created_at' => $delivery['created_at']
+                ];
+            }
+            
+            // Also include approved/ordered POs that haven't been scheduled yet (for reference)
+            $poModel = new \App\Models\PurchaseOrderModel();
+            
+            // Get PO IDs that already have deliveries
+            $db = \Config\Database::connect();
+            $scheduledPOIds = $db->table('deliveries')
+                                ->select('purchase_order_id')
+                                ->where('branch_id', $branchId)
+                                ->get()
+                                ->getResultArray();
+            $scheduledPOIds = array_column($scheduledPOIds, 'purchase_order_id');
+            
+            // Get approved/ordered POs that don't have deliveries yet
+            $builder = $poModel->select('purchase_orders.*, suppliers.company_name as supplier_name')
+                              ->join('suppliers', 'suppliers.id = purchase_orders.supplier_id', 'left')
+                              ->where('purchase_orders.branch_id', $branchId)
+                              ->whereIn('purchase_orders.status', ['approved', 'ordered']);
+            
+            if (!empty($scheduledPOIds)) {
+                $builder->whereNotIn('purchase_orders.id', $scheduledPOIds);
+            }
+            
+            $pendingPOs = $builder->orderBy('purchase_orders.created_at', 'DESC')->findAll();
+            
+            // Add pending POs as "pending_schedule" status
+            foreach ($pendingPOs as $po) {
+                $poItemModel = new \App\Models\PurchaseOrderItemModel();
+                $poItems = $poItemModel->getItemsByPurchaseOrder($po['id']);
+                
+                // Convert PO items to delivery item format for display
+                $formattedItems = [];
+                if (!empty($poItems)) {
+                    foreach ($poItems as $poItem) {
+                        $formattedItems[] = [
+                            'product_id' => $poItem['product_id'],
+                            'product_name' => $poItem['product_name'] ?? 'Unknown Product',
+                            'product_code' => $poItem['product_code'] ?? '',
+                            'product' => $poItem['product_name'] ?? 'Unknown Product',
+                            'expected_quantity' => $poItem['quantity'],
+                            'expected_qty' => $poItem['quantity'],
+                            'received_quantity' => 0,
+                            'received_qty' => 0,
+                            'unit_cost' => $poItem['unit_price'],
+                            'unit_value' => $poItem['unit_price'],
+                            'condition_status' => 'good',
+                            'condition' => 'good'
+                        ];
+                    }
+                }
+                
+                $result[] = [
+                    'id' => 'po_' . $po['id'], // Prefix to distinguish from delivery IDs
+                    'delivery_number' => $po['po_number'],
+                    'supplier' => $po['supplier_name'] ?? 'Unknown',
+                    'po_number' => $po['po_number'],
+                    'expected_date' => $po['expected_delivery'] ?? $po['requested_date'],
+                    'status' => 'pending_schedule', // Special status for unscheduled POs
+                    'received_by' => null,
+                    'items' => $formattedItems,
+                    'created_at' => $po['created_at'],
+                    'is_pending_schedule' => true,
+                    'po_id' => $po['id']
+                ];
+            }
+            
+            return $this->response->setJSON(['success' => true, 'data' => $result]);
+        } catch (\Exception $e) {
+            log_message('error', 'getAllDeliveries Error: ' . $e->getMessage());
+            return $this->response->setJSON(['success' => false, 'message' => 'Error loading deliveries: ' . $e->getMessage()]);
+        }
     }
 }
