@@ -4,17 +4,20 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\BranchModel;
+use App\Models\SupplierModel;
 use CodeIgniter\Controller;
 
 class Login extends Controller
 {
     protected $userModel;
     protected $branchModel;
+    protected $supplierModel;
 
     public function __construct()
     {
         $this->userModel = new UserModel();
         $this->branchModel = new BranchModel();
+        $this->supplierModel = new SupplierModel();
     }
 
     public function index()
@@ -53,6 +56,14 @@ class Login extends Controller
                 'branch_id' => $user['branch_id'],
                 'is_logged_in' => true
             ];
+
+            // If user is a supplier, find and set supplier_id by matching email
+            if ($user['role'] === 'supplier') {
+                $supplier = $this->supplierModel->where('email', $user['email'])->first();
+                if ($supplier) {
+                    $sessionData['supplier_id'] = $supplier['id'];
+                }
+            }
 
             session()->set($sessionData);
 

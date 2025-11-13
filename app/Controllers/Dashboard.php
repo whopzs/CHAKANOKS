@@ -7,6 +7,9 @@ use App\Models\BranchModel;
 use App\Models\PurchaseOrderModel;
 use App\Models\StockMovementModel;
 use App\Models\UserModel;
+use App\Models\SupplierModel;
+use App\Models\DeliveryModel;
+use App\Models\PurchaseOrderItemModel;
 use App\Services\NotificationService;
 use CodeIgniter\Controller;
 
@@ -17,6 +20,9 @@ class Dashboard extends Controller
     protected $purchaseOrderModel;
     protected $stockMovementModel;
     protected $userModel;
+    protected $supplierModel;
+    protected $deliveryModel;
+    protected $purchaseOrderItemModel;
 
     public function __construct()
     {
@@ -25,6 +31,9 @@ class Dashboard extends Controller
         $this->purchaseOrderModel = new PurchaseOrderModel();
         $this->stockMovementModel = new StockMovementModel();
         $this->userModel = new UserModel();
+        $this->supplierModel = new SupplierModel();
+        $this->deliveryModel = new DeliveryModel();
+        $this->purchaseOrderItemModel = new PurchaseOrderItemModel();
     }
 
     public function index()
@@ -158,14 +167,86 @@ class Dashboard extends Controller
 
     private function getSupplierData()
     {
-        $pendingOrders = $this->purchaseOrderModel->getSupplierOrders();
-        $recentOrders = $this->purchaseOrderModel->getRecentSupplierOrders();
+        // Get supplier_id from session (set during login)
+        $supplierId = session()->get('supplier_id');
+        
+        // If not in session, try to find by email
+        if (!$supplierId) {
+            $userEmail = session()->get('email');
+            if ($userEmail) {
+                $supplier = $this->supplierModel->where('email', $userEmail)->first();
+                if ($supplier) {
+                    $supplierId = $supplier['id'];
+                    session()->set('supplier_id', $supplierId);
+                }
+            }
+        }
+        
+        $pendingOrders = $supplierId ? $this->purchaseOrderModel->getSupplierOrdersByStatus($supplierId, 'approved') : [];
+        $activeOrders = $supplierId ? $this->purchaseOrderModel->getSupplierOrders($supplierId) : [];
+        $completedOrders = $supplierId ? $this->purchaseOrderModel
+            ->select('purchase_orders.*, branches.branch_name')
+            ->join('branches', 'branches.id = purchase_orders.branch_id')
+            ->where('purchase_orders.supplier_id', $supplierId)
+            ->where('purchase_orders.status', 'delivered')
+            ->orderBy('purchase_orders.updated_at', 'DESC')
+            ->limit(10)
+            ->findAll() : [];
         
         return [
             'pendingOrders' => $pendingOrders,
-            'recentOrders' => $recentOrders,
+            'activeOrders' => $activeOrders,
+            'completedOrders' => $completedOrders,
             'dashboardType' => 'supplier'
         ];
+    }
+
+    // Supplier Portal - View Orders
+    public function supplierOrders()
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'supplier') {
+            return redirect()->to(base_url('login'));
+        }
+
+        // Get supplier_id from session (set during login)
+        $supplierId = session()->get('supplier_id');
+        
+        // If not in session, try to find by email
+        if (!$supplierId) {
+            $userEmail = session()->get('email');
+            if ($userEmail) {
+                $supplier = $this->supplierModel->where('email', $userEmail)->first();
+                if ($supplier) {
+                    $supplierId = $supplier['id'];
+                    session()->set('supplier_id', $supplierId);
+                }
+            }
+        }
+        
+        if (!$supplierId) {
+            return redirect()->to(base_url('dashboard'))->with('error', 'Supplier account not linked to a supplier record. Please contact administrator.');
+        }
+
+        $pendingOrders = $this->purchaseOrderModel->getSupplierOrdersByStatus($supplierId, 'approved');
+        $allOrders = $this->purchaseOrderModel->getSupplierOrders($supplierId);
+        $deliveries = $this->deliveryModel->select('deliveries.*, purchase_orders.po_number, branches.branch_name')
+            ->join('purchase_orders', 'purchase_orders.id = deliveries.purchase_order_id')
+            ->join('branches', 'branches.id = deliveries.branch_id')
+            ->where('deliveries.supplier_id', $supplierId)
+            ->orderBy('deliveries.created_at', 'DESC')
+            ->findAll();
+
+        $data = [
+            'pendingOrders' => $pendingOrders,
+            'allOrders' => $allOrders,
+            'deliveries' => $deliveries,
+            'user' => [
+                'name' => session()->get('first_name') . ' ' . session()->get('last_name'),
+                'role' => session()->get('role')
+            ]
+        ];
+
+        return view('supplier/orders', $data);
     }
 
     private function getFranchiseManagerData()
@@ -515,6 +596,147 @@ class Dashboard extends Controller
         } catch (\Exception $e) {
             return [];
         }
+    }
+
+    // Purchase Order Approval Interface
+    public function purchaseOrders()
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'admin') {
+            return redirect()->to(base_url('login'));
+        }
+
+        $pendingOrders = $this->purchaseOrderModel->getPendingApprovals();
+        $allOrders = $this->purchaseOrderModel->select('purchase_orders.*, suppliers.company_name, branches.branch_name, users.first_name, users.last_name')
+            ->join('suppliers', 'suppliers.id = purchase_orders.supplier_id')
+            ->join('branches', 'branches.id = purchase_orders.branch_id')
+            ->join('users', 'users.id = purchase_orders.requested_by')
+            ->orderBy('purchase_orders.created_at', 'DESC')
+            ->findAll();
+
+        $data = [
+            'pendingOrders' => $pendingOrders,
+            'allOrders' => $allOrders,
+            'user' => [
+                'name' => session()->get('first_name') . ' ' . session()->get('last_name'),
+                'role' => session()->get('role')
+            ]
+        ];
+
+        return view('admin/purchase_orders', $data);
+    }
+
+    // API: Approve Purchase Order
+    public function approvePO($poId)
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'admin') {
+            return $this->response->setJSON(['success' => false, 'message' => 'Unauthorized'])->setStatusCode(401);
+        }
+
+        $approvedBy = session()->get('user_id');
+        $result = $this->purchaseOrderModel->approvePurchaseOrder($poId, $approvedBy);
+
+        if ($result) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Purchase order approved successfully']);
+        }
+
+        return $this->response->setJSON(['success' => false, 'message' => 'Failed to approve purchase order']);
+    }
+
+    // API: Reject Purchase Order
+    public function rejectPO($poId)
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'admin') {
+            return $this->response->setJSON(['success' => false, 'message' => 'Unauthorized'])->setStatusCode(401);
+        }
+
+        $approvedBy = session()->get('user_id');
+        $result = $this->purchaseOrderModel->rejectPurchaseOrder($poId, $approvedBy);
+
+        if ($result) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Purchase order rejected']);
+        }
+
+        return $this->response->setJSON(['success' => false, 'message' => 'Failed to reject purchase order']);
+    }
+
+    // API: Get Purchase Order Details
+    public function getPODetails($poId)
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'admin') {
+            return $this->response->setJSON(['success' => false, 'message' => 'Unauthorized'])->setStatusCode(401);
+        }
+
+        $po = $this->purchaseOrderModel->select('purchase_orders.*, suppliers.company_name, suppliers.contact_person, suppliers.email, suppliers.phone, branches.branch_name, users.first_name, users.last_name')
+            ->join('suppliers', 'suppliers.id = purchase_orders.supplier_id')
+            ->join('branches', 'branches.id = purchase_orders.branch_id')
+            ->join('users', 'users.id = purchase_orders.requested_by')
+            ->find($poId);
+
+        if (!$po) {
+            return $this->response->setJSON(['success' => false, 'message' => 'Purchase order not found']);
+        }
+
+        $items = $this->purchaseOrderItemModel->getItemsByPurchaseOrder($poId);
+
+        return $this->response->setJSON([
+            'success' => true,
+            'po' => $po,
+            'items' => $items
+        ]);
+    }
+
+    // Supplier Performance Reports
+    public function supplierReports()
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'admin') {
+            return redirect()->to(base_url('login'));
+        }
+
+        $suppliers = $this->supplierModel->getAllSuppliersWithPerformance(90);
+        $data = [
+            'suppliers' => $suppliers,
+            'user' => [
+                'name' => session()->get('first_name') . ' ' . session()->get('last_name'),
+                'role' => session()->get('role')
+            ]
+        ];
+
+        return view('admin/supplier_reports', $data);
+    }
+
+    // Delivery Tracking
+    public function deliveryTracking()
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'admin') {
+            return redirect()->to(base_url('login'));
+        }
+
+        $allDeliveries = $this->deliveryModel->getAllDeliveries();
+        $deliveryStats = $this->deliveryModel->getDeliveryStatistics();
+
+        $data = [
+            'deliveries' => $allDeliveries,
+            'stats' => $deliveryStats,
+            'user' => [
+                'name' => session()->get('first_name') . ' ' . session()->get('last_name'),
+                'role' => session()->get('role')
+            ]
+        ];
+
+        return view('admin/delivery_tracking', $data);
+    }
+
+    // API: Get Deliveries
+    public function getDeliveries()
+    {
+        if (!session()->get('is_logged_in') || session()->get('role') !== 'admin') {
+            return $this->response->setJSON(['success' => false, 'message' => 'Unauthorized'])->setStatusCode(401);
+        }
+
+        $status = $this->request->getGet('status');
+        $deliveries = $this->deliveryModel->getAllDeliveries($status);
+
+        return $this->response->setJSON(['success' => true, 'deliveries' => $deliveries]);
     }
 
 }
