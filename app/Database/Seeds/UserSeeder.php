@@ -12,6 +12,9 @@ class UserSeeder extends Seeder
         // admin: 'admin123'
         // bm_dvo01: 'manager123'
         // staff_dvo01: 'staff123'
+        // supplier_prime: 'supplier123'
+        // supplier_fresh: 'supplier123'
+        // logistics_coord: 'logistics123'
         
         $users = [
             [
@@ -42,6 +45,38 @@ class UserSeeder extends Seeder
                 'last_name' => 'Staff',
                 'role' => 'inventory_staff',
                 'branch_id' => 1,
+                'is_active' => 1,
+            ],
+            // Supplier Accounts
+            [
+                'username' => 'supplier_prime',
+                'email' => 'sales@primefoods.test',
+                'password' => password_hash('supplier123', PASSWORD_DEFAULT),
+                'first_name' => 'John',
+                'last_name' => 'Smith',
+                'role' => 'supplier',
+                'branch_id' => null, // Suppliers don't belong to branches
+                'is_active' => 1,
+            ],
+            [
+                'username' => 'supplier_fresh',
+                'email' => 'orders@freshharvest.test',
+                'password' => password_hash('supplier123', PASSWORD_DEFAULT),
+                'first_name' => 'Maria',
+                'last_name' => 'Garcia',
+                'role' => 'supplier',
+                'branch_id' => null,
+                'is_active' => 1,
+            ],
+            // Logistics Coordinator Account
+            [
+                'username' => 'logistics_coord',
+                'email' => 'logistics@chakanoks.test',
+                'password' => password_hash('logistics123', PASSWORD_DEFAULT),
+                'first_name' => 'Logistics',
+                'last_name' => 'Coordinator',
+                'role' => 'logistics_coordinator',
+                'branch_id' => null, // Logistics coordinators work across all branches
                 'is_active' => 1,
             ],
         ];
