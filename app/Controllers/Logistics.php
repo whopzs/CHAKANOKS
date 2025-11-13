@@ -25,7 +25,45 @@ class Logistics extends Controller
 
     public function index()
     {
-        return view('logistics/dashboard');
+        // Get PO IDs that already have deliveries
+        $db = \Config\Database::connect();
+        $scheduledPOIds = $db->table('deliveries')
+                            ->select('purchase_order_id')
+                            ->get()
+                            ->getResultArray();
+        $scheduledPOIds = array_column($scheduledPOIds, 'purchase_order_id');
+        
+        // Get approved purchase orders that haven't been scheduled yet
+        $builder = $this->purchaseOrderModel
+            ->select('purchase_orders.*, suppliers.company_name as supplier_name, branches.branch_name, users.first_name, users.last_name')
+            ->join('suppliers', 'suppliers.id = purchase_orders.supplier_id', 'left')
+            ->join('branches', 'branches.id = purchase_orders.branch_id', 'left')
+            ->join('users', 'users.id = purchase_orders.requested_by', 'left')
+            ->where('purchase_orders.status', 'approved');
+        
+        if (!empty($scheduledPOIds)) {
+            $builder->whereNotIn('purchase_orders.id', $scheduledPOIds);
+        }
+        
+        $approvedPOs = $builder->orderBy('purchase_orders.created_at', 'DESC')->findAll();
+        
+        // Get all scheduled/active deliveries
+        $deliveries = $this->deliveryModel
+            ->select('deliveries.*, suppliers.company_name as supplier_name, branches.branch_name, purchase_orders.po_number')
+            ->join('suppliers', 'suppliers.id = deliveries.supplier_id', 'left')
+            ->join('branches', 'branches.id = deliveries.branch_id', 'left')
+            ->join('purchase_orders', 'purchase_orders.id = deliveries.purchase_order_id', 'left')
+            ->orderBy('deliveries.created_at', 'DESC')
+            ->findAll();
+        
+        // Get delivery statistics
+        $stats = $this->deliveryModel->getDeliveryStatistics();
+        
+        return view('logistics/dashboard', [
+            'approvedPOs' => $approvedPOs,
+            'deliveries' => $deliveries,
+            'stats' => $stats
+        ]);
     }
 
     // API: Create/schedule a delivery from an approved PO
@@ -63,6 +101,30 @@ class Logistics extends Controller
         $deliveryId = $this->deliveryModel->insert($deliveryData);
         if (!$deliveryId) {
             return $this->response->setJSON(['success' => false, 'error' => 'Failed to create delivery'])->setStatusCode(500);
+        }
+
+        // Create delivery items from purchase order items
+        $poItemModel = new \App\Models\PurchaseOrderItemModel();
+        $poItems = $poItemModel->getItemsByPurchaseOrder($poId);
+        
+        if (empty($poItems)) {
+            // If no PO items exist, log a warning but don't fail
+            log_message('warning', "No purchase order items found for PO ID: {$poId}");
+        } else {
+            foreach ($poItems as $poItem) {
+                $deliveryItemData = [
+                    'delivery_id' => $deliveryId,
+                    'product_id' => $poItem['product_id'],
+                    'expected_quantity' => $poItem['quantity'],
+                    'received_quantity' => 0, // Will be updated when received
+                    'unit_cost' => $poItem['unit_price'],
+                    'condition_status' => 'good', // Default, can be updated on receipt
+                ];
+                
+                if (!$this->deliveryItemModel->insert($deliveryItemData)) {
+                    log_message('error', "Failed to create delivery item for product ID: {$poItem['product_id']}");
+                }
+            }
         }
 
         // Optionally mark PO as ordered

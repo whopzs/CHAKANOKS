@@ -23,15 +23,27 @@ $routes->get('branchmanager', 'BranchManager::index', ['filter' => 'auth']);
 $routes->get('staff', 'Staff::index', ['filter' => 'auth']);
 $routes->get('logistics', 'Logistics::index', ['filter' => 'auth']);
 
+// Supplier routes
+$routes->group('supplier', ['filter' => 'auth'], static function($routes) {
+    $routes->get('orders', 'Dashboard::supplierOrders');
+});
+
 // Central Office Admin routes (admin role only)
 $routes->group('admin', ['filter' => 'auth'], static function($routes) {
     $routes->get('inventory', 'Dashboard::adminInventory');
     $routes->get('products', 'Dashboard::adminProducts');
     $routes->get('branch-inventory/(:num)', 'Dashboard::branchInventory/$1');
+    $routes->get('purchase-orders', 'Dashboard::purchaseOrders');
+    $routes->get('supplier-reports', 'Dashboard::supplierReports');
+    $routes->get('delivery-tracking', 'Dashboard::deliveryTracking');
     
-        // Admin API routes
-        $routes->get('api/inventory-data', 'Dashboard::getInventoryData');
-        $routes->get('api/product-data', 'Dashboard::getProductData');
+    // Admin API routes
+    $routes->get('api/inventory-data', 'Dashboard::getInventoryData');
+    $routes->get('api/product-data', 'Dashboard::getProductData');
+    $routes->post('api/purchase-orders/(:num)/approve', 'Dashboard::approvePO/$1');
+    $routes->post('api/purchase-orders/(:num)/reject', 'Dashboard::rejectPO/$1');
+    $routes->get('api/purchase-orders/(:num)/details', 'Dashboard::getPODetails/$1');
+    $routes->get('api/deliveries', 'Dashboard::getDeliveries');
 });
 
 // Inventory Staff subpages
@@ -97,4 +109,11 @@ $routes->group('branchmanager', ['filter' => 'auth'], static function($routes) {
     $routes->get('api/products', 'BranchManager::apiProducts');
     $routes->post('api/create-purchase-request', 'BranchManager::apiCreatePurchaseRequest');
     $routes->delete('api/delete-purchase-request/(:num)', 'BranchManager::apiDeletePurchaseRequest/$1');
+});
+
+// Supplier routes
+$routes->group('supplier', ['filter' => 'auth'], static function($routes) {
+    $routes->get('/', 'Supplier::index');
+    $routes->get('api/orders/(:num)/details', 'Supplier::getOrderDetails/$1');
+    $routes->post('api/orders/(:num)/status', 'Supplier::updateOrderStatus/$1');
 });

@@ -31,12 +31,21 @@ function createNavItem($icon, $text, $url = null, $isActive = false, $badge = nu
 function getRoleNavigation($role, $currentPath) {
     switch ($role) {
         case 'admin':
+            // Get pending approvals count for badge
+            $pendingCount = 0;
+            try {
+                $poModel = new \App\Models\PurchaseOrderModel();
+                $pendingOrders = $poModel->getPurchaseOrdersByStatus('pending');
+                $pendingCount = count($pendingOrders);
+            } catch (\Exception $e) {
+                // Silently fail if model not available
+            }
             return [
                 createNavItem('bi bi-boxes', 'Inventory Overview', base_url('admin/inventory'), $currentPath === 'admin/inventory'),
                 createNavItem('bi bi-box-seam', 'Products Management', base_url('admin/products'), $currentPath === 'admin/products'),
-                createNavItem('bi bi-cart', 'Purchase Orders', null, false, '5', "alert('Purchase Orders - Coming Soon')"),
-                createNavItem('bi bi-people', 'Suppliers', null, false, null, "alert('Suppliers - Coming Soon')"),
-                createNavItem('bi bi-truck', 'Deliveries & Logistics', null, false, '2', "alert('Deliveries & Logistics - Coming Soon')"),
+                createNavItem('bi bi-cart', 'Purchase Orders', base_url('admin/purchase-orders'), $currentPath === 'admin/purchase-orders', $pendingCount > 0 ? $pendingCount : null),
+                createNavItem('bi bi-people', 'Supplier Reports', base_url('admin/supplier-reports'), $currentPath === 'admin/supplier-reports'),
+                createNavItem('bi bi-truck', 'Delivery Tracking', base_url('admin/delivery-tracking'), $currentPath === 'admin/delivery-tracking'),
                 createNavItem('bi bi-arrow-left-right', 'Branch Transfers', null, false, null, "alert('Branch Transfers - Coming Soon')"),
                 createNavItem('bi bi-bar-chart', 'Reports & Analytics', null, false, null, "alert('Reports & Analytics - Coming Soon')"),
                 createNavItem('bi bi-shop', 'Franchising', null, false, '4', "alert('Franchising - Coming Soon')"),
@@ -61,16 +70,16 @@ function getRoleNavigation($role, $currentPath) {
             
         case 'logistics_coordinator':
             return [
-                createNavItem('bi bi-calendar', 'Delivery Schedule', null, false, null, "alert('Delivery Schedule - Coming Soon')"),
-                createNavItem('bi bi-truck', 'Track Deliveries', null, false, null, "alert('Track Deliveries - Coming Soon')"),
-                createNavItem('bi bi-geo-alt', 'Route Optimization', null, false, null, "alert('Route Optimization - Coming Soon')"),
-                createNavItem('bi bi-bar-chart', 'Reports', null, false, null, "alert('Reports - Coming Soon')")
+                createNavItem('bi bi-grid', 'Dashboard', base_url('logistics'), $currentPath === 'logistics'),
+                createNavItem('bi bi-calendar', 'Schedule Delivery', base_url('logistics'), $currentPath === 'logistics'),
+                createNavItem('bi bi-truck', 'Track Deliveries', base_url('logistics'), $currentPath === 'logistics'),
+                createNavItem('bi bi-bar-chart', 'Reports', base_url('dashboard'), $currentPath === 'dashboard')
             ];
             
         case 'supplier':
             return [
-                createNavItem('bi bi-list-check', 'View Orders', null, false, null, "alert('View Orders - Coming Soon')"),
-                createNavItem('bi bi-pencil-square', 'Update Status', null, false, null, "alert('Update Status - Coming Soon')"),
+                createNavItem('bi bi-list-check', 'View Orders', base_url('supplier'), $currentPath === 'supplier'),
+                createNavItem('bi bi-pencil-square', 'Update Status', base_url('supplier'), $currentPath === 'supplier'),
                 createNavItem('bi bi-receipt', 'Submit Invoice', null, false, null, "alert('Submit Invoice - Coming Soon')"),
                 createNavItem('bi bi-bar-chart', 'Reports', null, false, null, "alert('Reports - Coming Soon')")
             ];
