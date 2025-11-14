@@ -601,23 +601,23 @@ class Inventory extends BaseController
             }
             
             // Get actual deliveries for this branch
-            $deliveries = $this->deliveryModel->select('deliveries.*, suppliers.company_name as supplier_name, purchase_orders.po_number')
+            $deliveries = $this->deliveryModel->select('deliveries.*, suppliers.company_name as supplier_name, purchase_orders.po_number, purchase_orders.total_amount, purchase_orders.total_quantity')
                                             ->join('suppliers', 'suppliers.id = deliveries.supplier_id', 'left')
                                             ->join('purchase_orders', 'purchase_orders.id = deliveries.purchase_order_id', 'left')
                                             ->where('deliveries.branch_id', $branchId)
                                             ->orderBy('deliveries.created_at', 'DESC')
                                             ->findAll();
-            
+
             // Get delivery items for each delivery
             $result = [];
             foreach ($deliveries as $delivery) {
                 $items = $this->deliveryItemModel->getItemsByDelivery($delivery['id']);
-                
+
                 // If no delivery items exist, try to get from PO items
                 if (empty($items) && !empty($delivery['purchase_order_id'])) {
                     $poItemModel = new \App\Models\PurchaseOrderItemModel();
                     $poItems = $poItemModel->getItemsByPurchaseOrder($delivery['purchase_order_id']);
-                    
+
                     // Convert PO items to delivery item format
                     if (!empty($poItems)) {
                         foreach ($poItems as $poItem) {
@@ -638,7 +638,7 @@ class Inventory extends BaseController
                         }
                     }
                 }
-                
+
                 $result[] = [
                     'id' => $delivery['id'],
                     'delivery_number' => $delivery['delivery_number'],
@@ -648,6 +648,8 @@ class Inventory extends BaseController
                     'status' => $delivery['status'],
                     'received_by' => $delivery['driver_name'] ?? null,
                     'items' => $items,
+                    'total_amount' => $delivery['total_amount'] ?? null, // Include PO total amount for actual deliveries too
+                    'total_quantity' => $delivery['total_quantity'] ?? 0, // Include PO total quantity
                     'created_at' => $delivery['created_at']
                 ];
             }
@@ -711,6 +713,8 @@ class Inventory extends BaseController
                     'status' => 'pending_schedule', // Special status for unscheduled POs
                     'received_by' => null,
                     'items' => $formattedItems,
+                    'total_amount' => $po['total_amount'], // Include PO total amount
+                    'total_quantity' => $po['total_quantity'] ?? 0, // Include PO total quantity
                     'created_at' => $po['created_at'],
                     'is_pending_schedule' => true,
                     'po_id' => $po['id']

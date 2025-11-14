@@ -143,7 +143,7 @@ class BranchManager extends Controller
         }
 
         $builder = $this->purchaseOrderModel
-            ->select('purchase_orders.*, suppliers.company_name, COUNT(purchase_order_items.id) as items_count')
+            ->select('purchase_orders.*, suppliers.company_name, COUNT(purchase_order_items.id) as items_count, purchase_orders.total_quantity')
             ->join('suppliers', 'suppliers.id = purchase_orders.supplier_id', 'left')
             ->join('purchase_order_items', 'purchase_order_items.purchase_order_id = purchase_orders.id', 'left')
             ->where('purchase_orders.branch_id', $branchId)
@@ -193,6 +193,7 @@ class BranchManager extends Controller
             'requested_by' => $requestedBy,
             'status' => in_array($status, ['draft','pending'], true) ? $status : 'draft',
             'total_amount' => 0,
+            'total_quantity' => 0,
             'notes' => $notes,
             'requested_date' => date('Y-m-d H:i:s'),
             'expected_delivery' => $expectedDelivery,
@@ -209,21 +210,21 @@ class BranchManager extends Controller
 
         $poItemModel = new \App\Models\PurchaseOrderItemModel();
         $totalAmount = 0;
+        $totalQuantity = 0;
         foreach ($items as $item) {
             $productId = (int) ($item['product_id'] ?? 0);
             $quantity = (float) ($item['quantity'] ?? 0);
             $unitPrice = (float) ($item['unit_price'] ?? 0);
             if ($productId <= 0 || $quantity <= 0) { continue; }
+            $poItemModel->addItem($poId, $productId, $quantity, $unitPrice);
             $totalAmount += ($quantity * $unitPrice);
-            $poItemModel->insert([
-                'purchase_order_id' => $poId,
-                'product_id' => $productId,
-                'quantity' => $quantity,
-                'unit_price' => $unitPrice,
-            ]);
+            $totalQuantity += $quantity;
         }
 
-        $this->purchaseOrderModel->update($poId, ['total_amount' => $totalAmount]);
+        $this->purchaseOrderModel->update($poId, [
+            'total_amount' => $totalAmount,
+            'total_quantity' => (int) $totalQuantity
+        ]);
         $this->db->transComplete();
 
         if (!$this->db->transStatus()) {
@@ -296,6 +297,7 @@ class BranchManager extends Controller
             'requested_by' => $requestedBy,
             'status' => 'pending',
             'total_amount' => 0,
+            'total_quantity' => 0,
             'notes' => $notes,
             'requested_date' => date('Y-m-d H:i:s')
         ];
@@ -305,17 +307,24 @@ class BranchManager extends Controller
         if ($poId) {
             $poItemModel = new \App\Models\PurchaseOrderItemModel();
             $totalAmount = 0;
-            
+            $totalQuantity = 0;
+
             foreach ($items as $item) {
-                $itemTotal = $item['quantity'] * $item['unit_price'];
+                $quantity = (float) $item['quantity'];
+                $unitPrice = (float) $item['unit_price'];
+                $itemTotal = $quantity * $unitPrice;
                 $totalAmount += $itemTotal;
-                
-                $poItemModel->addItem($poId, $item['product_id'], $item['quantity'], $item['unit_price']);
+                $totalQuantity += $quantity;
+
+                $poItemModel->addItem($poId, $item['product_id'], $quantity, $unitPrice);
             }
-            
-            // Update total amount
-            $this->purchaseOrderModel->update($poId, ['total_amount' => $totalAmount]);
-            
+
+            // Update total amount and total quantity
+            $this->purchaseOrderModel->update($poId, [
+                'total_amount' => $totalAmount,
+                'total_quantity' => (int) $totalQuantity
+            ]);
+
             return $this->response->setJSON(['success' => true, 'message' => 'Purchase order created successfully', 'po_id' => $poId]);
         }
         

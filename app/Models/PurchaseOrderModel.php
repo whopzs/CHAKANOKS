@@ -13,8 +13,8 @@ class PurchaseOrderModel extends Model
     protected $useSoftDeletes = false;
     protected $protectFields = true;
     protected $allowedFields = [
-        'po_number', 'supplier_id', 'branch_id', 'requested_by', 'status', 
-        'total_amount', 'notes', 'requested_date', 'approved_date', 
+        'po_number', 'supplier_id', 'branch_id', 'requested_by', 'status',
+        'total_amount', 'total_quantity', 'notes', 'requested_date', 'approved_date',
         'approved_by', 'expected_delivery'
     ];
 
@@ -32,6 +32,7 @@ class PurchaseOrderModel extends Model
         'requested_by' => 'required|integer',
         'status' => 'required|in_list[draft,pending,approved,rejected,ordered,delivered,cancelled]',
         'total_amount' => 'required|decimal|greater_than_equal_to[0]',
+        'total_quantity' => 'required|decimal|greater_than_equal_to[0]',
         'notes' => 'permit_empty',
         'requested_date' => 'required|valid_date',
         'approved_date' => 'permit_empty|valid_date',
@@ -163,4 +164,3 @@ class PurchaseOrderModel extends Model
         return [];
     }
 }
-

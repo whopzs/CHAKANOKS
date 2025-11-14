@@ -240,14 +240,33 @@ function loadDeliveries() {
   const filteredData = getFilteredDeliveries();
   
   filteredData.forEach(delivery => {
-    // Calculate total value from items (handle both old and new field names)
-    const totalValue = (delivery.items || []).reduce((sum, item) => {
-      const qty = item.expected_quantity || item.expected_qty || 0;
-      const cost = item.unit_cost || item.unit_value || 0;
-      return sum + (qty * cost);
-    }, 0);
+    // Calculate total value based on delivery type
+    let totalValue = 0;
+    if (delivery.is_pending_schedule && delivery.total_amount) {
+      // For pending schedules, use the PO total amount directly
+      totalValue = delivery.total_amount;
+    } else if (delivery.total_amount && (delivery.items || []).length === 0) {
+      // For actual deliveries with no items but PO total available, use PO total
+      totalValue = delivery.total_amount;
+    } else {
+      // For actual deliveries, calculate from items based on status
+      // For delivered items, use received quantity; for others, use expected quantity
+      totalValue = (delivery.items || []).reduce((sum, item) => {
+        let qty = 0;
+        if (delivery.status === 'delivered') {
+          qty = item.received_quantity || item.received_qty || 0;
+        } else {
+          qty = item.expected_quantity || item.expected_qty || 0;
+        }
+        const cost = item.unit_cost || item.unit_value || 0;
+        return sum + (qty * cost);
+      }, 0);
+    }
     const statusClass = getDeliveryStatusClass(delivery.status);
-    const itemCount = (delivery.items || []).length;
+    // Use total_quantity from PO if available, otherwise count items
+    const itemCount = delivery.total_quantity > 0 ? delivery.total_quantity :
+                     (delivery.items && delivery.items.length > 0) ? delivery.items.length :
+                     (delivery.is_pending_schedule ? delivery.items.length : 0);
     
     const row = `
       <tr>
@@ -566,19 +585,41 @@ function exportDeliveries() {
 function convertDeliveriesToCSV(data) {
   const headers = ['Delivery ID', 'Supplier', 'Expected Date', 'Actual Date', 'Status', 'Items Count', 'Total Value', 'Received By'];
   const rows = data.map(delivery => {
-    const totalValue = delivery.items.reduce((sum, item) => sum + (item.expected_qty * item.unit_value), 0);
+    // Calculate total value based on delivery type
+    let totalValue = 0;
+    if (delivery.is_pending_schedule && delivery.total_amount) {
+      // For pending schedules, use the PO total amount directly
+      totalValue = delivery.total_amount;
+    } else if (delivery.total_amount && (delivery.items || []).length === 0) {
+      // For actual deliveries with no items but PO total available, use PO total
+      totalValue = delivery.total_amount;
+    } else {
+      // For actual deliveries, calculate from items based on status
+      totalValue = (delivery.items || []).reduce((sum, item) => {
+        let qty = 0;
+        if (delivery.status === 'delivered') {
+          qty = item.received_quantity || item.received_qty || 0;
+        } else {
+          qty = item.expected_quantity || item.expected_qty || 0;
+        }
+        const cost = item.unit_cost || item.unit_value || 0;
+        return sum + (qty * cost);
+      }, 0);
+    }
     return [
       delivery.id,
       delivery.supplier,
       delivery.expected_date,
       delivery.actual_date || '',
       delivery.status,
-      delivery.items.length,
+      delivery.total_quantity > 0 ? delivery.total_quantity :
+      (delivery.items && delivery.items.length > 0) ? delivery.items.length :
+      (delivery.is_pending_schedule ? delivery.items.length : 0),
       totalValue,
       delivery.received_by || ''
     ];
   });
-  
+
   return [headers, ...rows].map(row => row.join(',')).join('\n');
 }
 
@@ -635,5 +676,3 @@ function showAlert(message, type) {
 </script>
 
 <?= $this->include('shared/footer') ?>
-
-

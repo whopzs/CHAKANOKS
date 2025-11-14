@@ -89,7 +89,7 @@
             <tr>
               <th>PO Number</th>
               <th>Supplier</th>
-              <th>Items Count</th>
+              <th>Items</th>
               <th>Total Amount</th>
               <th>Requested Date</th>
               <th>Expected Delivery</th>
@@ -340,7 +340,7 @@ function loadRequestsTable() {
       <tr>
         <td><strong>${request.po_number || ''}</strong></td>
         <td>${request.company_name || 'Unknown Supplier'}</td>
-        <td>${request.items_count || 0}</td>
+        <td>${request.total_quantity || 0}</td>
         <td>₱${parseFloat(request.total_amount || 0).toLocaleString()}</td>
         <td>${requestedDate}</td>
         <td>${expectedDelivery}</td>
@@ -705,17 +705,17 @@ function exportRequests() {
 }
 
 function convertRequestsToCSV(data) {
-  const headers = ['PO Number', 'Supplier', 'Items Count', 'Total Amount', 'Requested Date', 'Expected Delivery', 'Status'];
+  const headers = ['PO Number', 'Supplier', 'Total Quantity', 'Total Amount', 'Requested Date', 'Expected Delivery', 'Status'];
   const rows = data.map(request => [
     request.po_number,
     request.company_name,
-    request.items_count,
+    request.total_quantity,
     request.total_amount,
     request.requested_date,
     request.expected_delivery || 'N/A',
     request.status
   ]);
-  
+
   return [headers, ...rows].map(row => row.join(',')).join('\n');
 }
 
@@ -763,5 +763,3 @@ document.getElementById('createRequestModal').addEventListener('hidden.bs.modal'
 </script>
 
 <?= $this->include('shared/footer') ?>
-
-
